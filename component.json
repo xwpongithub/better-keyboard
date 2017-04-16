@@ -1,0 +1,6 @@
+{
+    "name": "jkeyboard",
+    "version": "0.0.1",
+    "main": "build/jkeyboard.js",
+    "description": "A js keyboard component for mobile."
+}
