@@ -14,6 +14,9 @@ module.exports = {
     libraryTarget: "umd",
     publicPath: '/assets/'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.styl']
+  },
   module: {
         rules: [
             {
