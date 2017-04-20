@@ -12,7 +12,7 @@ export default class JKeyboard {
     let renderParams = {};
     renderParams.id = id;
     renderParams.key = options.key || '';
-    renderParams.showClose = options.showClose ? '' : 'hide';
+    renderParams.showClose = options.showClose ? 'hide' : '';
     this.render(renderParams);
   }
   render(params) {
@@ -21,7 +21,7 @@ export default class JKeyboard {
     wrapperEl.appendChild(keyboardEl);
   }
   generateKeyboardPanel(params) {
-    let template = `<div class="keyboard pct100 abs-lb num" id="${params.id}" key="${params.key}">
+    let template = `<div class="keyboard num" id="${params.id}" key="${params.key}">
                        <div class="abs-mt symbol bt border-box">
                          <div class="arrow-box abs-rm ${params.showClose}">
                            <div class="arrow-box-text">完成</div>

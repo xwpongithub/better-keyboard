@@ -11,7 +11,7 @@ export function genRandomID(len) {
  * 根据字符串生成DOM元素，只能有一个根元素
  */
 export function parseDom(arg) {
-    var objE = document.createElement('div');
+    let objE = document.createElement('div');
     objE.innerHTML = arg;
     return objE.childNodes[0];
 }
