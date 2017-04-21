@@ -5,33 +5,46 @@ html.scroll-fixed
   body
     overflow:hidden
 
-.border-box
-  box-sizing: border-box
-
-.bt
-  border-top: 1px solid #e4e4e4
-
-.hide
-  display:none
+.arrow-right-b, a, div, h2, li, p, span
+  background-repeat:no-repeat
 
 .keyboard
-  position: absolute
+  position: fixed
+  display:none;
   left: 0
   bottom: 0
   z-index:900
   height: 260px
   background-color: #fff
   text-align:center
-  line-height:1
   transform:translateY(100%)
   transition:all .2s ease-in
   width: 100%
   border-color:#d6d6d6
+  &.slide-up
+   transform: translateY(0)
+  .border-box
+    box-sizing: border-box
+  .br
+    border-right: 1px solid #e4e4e4
+  .bl
+    border-left: 1px solid #e4e4e4
+  .bt
+    border-top: 1px solid #e4e4e4
+  .hide
+    display:none
+  .v-h
+    visibility: hidden
   .abs-mt
     position: absolute
     left: 50%
     top: 0
     transform: translateX(-50%)
+  .abs-mm
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
   .abs-rm
     position: absolute
     right: 0
@@ -52,10 +65,45 @@ html.scroll-fixed
         border-radius:4px
         padding: 3px 0
   ul
-    position: absolute;
+    position: absolute
+    width:100%
     top: 60px
     bottom: 0
     left: 0
     border-color:#d6d6d6
     li
+      position: relative
+      display:flex
+      box-sizing:border-box
       border-color:#d6d6d6
+      height:25%
+      div
+        position: relative
+        flex:1
+        font-size: 30px
+        line-height: 50px
+        border-top: 1px solid #d6d6d6
+        &.active
+          background-color: #C3C7CF
+  &.num
+    .bg-gray
+      background-color: #c3c7cf
+    li:nth-of-type(4) div
+      border-color: #b3b9c4
+      &:nth-of-type(2)
+        border-top-color: #d6d6d6
+    .del
+      &.active
+        background-color: #fff
+      span
+        top:25px
+        width: 25px;
+        height: 18px;
+        background-image: url(http://static.360buyimg.com/finance/mobile/payment/cashiers/2.0.1/css/img/common/delete.png);
+        background-position: center top;
+        background-size: 100%;
+  @keyframes slideUp
+    0%
+      transform: translateY(100%)
+    100%
+      transform: translateY(0)

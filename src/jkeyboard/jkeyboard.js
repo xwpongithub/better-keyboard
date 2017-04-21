@@ -1,6 +1,6 @@
 import './assets/styl/index';
 
-import {genRandomID, parseDom} from '../utils';
+import {genRandomID, parseDom, requestAnimationFrame} from '../utils';
 
 export default class JKeyboard {
   constructor(options = {}) {
@@ -56,5 +56,15 @@ export default class JKeyboard {
                        </ul>
                      </div>`;
       return parseDom(template);
+  }
+  show() {
+    let id = this.props.id;
+    let keyboard = document.querySelector('#' + id);
+    keyboard.style.display = 'block';
+    /* eslint-disable no-unused-vars */
+    let block = keyboard.offsetHeight;
+    requestAnimationFrame(() => {
+      keyboard.classList.add('slide-up');
+    });
   }
 }
