@@ -14,6 +14,9 @@ module.exports = {
     library:'JKeyboard',
     libraryTarget: "umd"
   },
+  resolve: {
+        extensions: ['.js','.styl']
+  },
   module: {
         rules: [
             {

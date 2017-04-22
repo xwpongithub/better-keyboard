@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '/assets/'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.styl']
+    extensions: ['.js','.styl']
   },
   module: {
         rules: [

@@ -3,10 +3,12 @@ import JKeyboard from './jkeyboard/jkeyboard';
 /* eslint-disable no-undef */
 JKeyboard.version = __VERSION__;
 
-let keyboard = new JKeyboard();
-
-setTimeout(() => {
-    keyboard.show();
-}, 5000);
+// /* eslint-disable no-new */
+let keyboard = new JKeyboard({
+    onClose: () => {
+        console.log('close!');
+    }
+});
+keyboard.show();
 
 module.exports = JKeyboard;

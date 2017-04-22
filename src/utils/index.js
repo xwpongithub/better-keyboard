@@ -66,7 +66,7 @@ export function extend(target, source) {
     for (var key in source) {
         target[key] = source[key];
     }
-};
+}
 
 const DEFAULT_INTERVAL = 100 / 60;
 

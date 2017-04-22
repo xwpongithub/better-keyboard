@@ -1,6 +1,9 @@
 import './assets/styl/index';
 
-import {genRandomID, parseDom, requestAnimationFrame} from '../utils';
+import {genRandomID, parseDom, requestAnimationFrame, style} from '../utils';
+
+const clickEvt = 'click';
+const slideUpAnimation = 'slide-up';
 
 export default class JKeyboard {
   constructor(options = {}) {
@@ -14,6 +17,11 @@ export default class JKeyboard {
     renderParams.key = options.key || '';
     renderParams.showClose = options.showClose ? 'hide' : '';
     this.render(renderParams);
+    this.bindEvents();
+  }
+  closeHandler() {
+    this.close();
+    this.props.onClose && this.props.onClose();
   }
   render(params) {
     let wrapperEl = document.querySelector(this.wrapperSelector);
@@ -57,14 +65,27 @@ export default class JKeyboard {
                      </div>`;
       return parseDom(template);
   }
+  bindEvents() {
+      this.keyboard = document.querySelector('#' + this.props.id);
+      let closeBox = this.keyboard.querySelector('.arrow-box');
+      closeBox.removeEventListener(clickEvt, this.closeHandler.bind(this), false);
+      closeBox.addEventListener(clickEvt, this.closeHandler.bind(this), false);
+  }
   show() {
-    let id = this.props.id;
-    let keyboard = document.querySelector('#' + id);
-    keyboard.style.display = 'block';
+    document.documentElement.classList.add('scroll-fixed');
+    this.keyboard.style.display = 'block';
     /* eslint-disable no-unused-vars */
-    let block = keyboard.offsetHeight;
+    let block = this.keyboard.offsetHeight;
     requestAnimationFrame(() => {
-      keyboard.classList.add('slide-up');
+      this.keyboard.classList.add(slideUpAnimation);
     });
+  }
+  close() {
+    this.keyboard.removeEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
+    this.keyboard.addEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
+    this.keyboard.classList.remove(slideUpAnimation);
+  }
+  onCloseHandler() {
+      this.keyboard.removeEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
   }
 }
