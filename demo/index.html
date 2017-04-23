@@ -7,6 +7,19 @@
     <title>jkeyboard-demo</title>
 </head>
 <body>
+<button type="button" class="btn-show">显示</button>
+<button type="button" class="btn-hide">隐藏</button>
 <script src="/assets/jkeyboard.js"></script>
+<script>
+    var showBtn = document.querySelector('.btn-show');
+    var hideBtn = document.querySelector('.btn-hide');
+    var keyboard = new JKeyboard();
+    showBtn.addEventListener('click',function () {
+        keyboard.show();
+    },false);
+    hideBtn.addEventListener('click',function(){
+        keyboard.close();
+    },false);
+</script>
 </body>
 </html>

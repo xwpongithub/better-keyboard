@@ -1,9 +1,10 @@
 import './assets/styl/index';
 
-import {genRandomID, parseDom, requestAnimationFrame, style} from '../utils';
+import {genRandomID, parseDom, requestAnimationFrame, style, hasTouch} from '../utils';
 
 const clickEvt = 'click';
 const slideUpAnimation = 'slide-up';
+const inputEvt = hasTouch ? 'touchend' : clickEvt;
 
 export default class JKeyboard {
   constructor(options = {}) {
@@ -19,17 +20,8 @@ export default class JKeyboard {
     this.render(renderParams);
     this.bindEvents();
   }
-  closeHandler() {
-    this.close();
-    this.props.onClose && this.props.onClose();
-  }
-  render(params) {
-    let wrapperEl = document.querySelector(this.wrapperSelector);
-    let keyboardEl = this.generateKeyboardPanel(params);
-    wrapperEl.appendChild(keyboardEl);
-  }
-  generateKeyboardPanel(params) {
-    let template = `<div class="keyboard num" id="${params.id}" key="${params.key}">
+  static generateKeyboardPanel(params) {
+        let template = `<div class="keyboard num" id="${params.id}" key="${params.key}">
                        <div class="abs-mt symbol bt border-box">
                          <div class="arrow-box abs-rm ${params.showClose}">
                            <div class="arrow-box-text">完成</div>
@@ -63,13 +55,22 @@ export default class JKeyboard {
                          </li>
                        </ul>
                      </div>`;
-      return parseDom(template);
+        return parseDom(template);
+    }
+  render(params) {
+    let wrapperEl = document.querySelector(this.wrapperSelector);
+    let keyboardEl = JKeyboard.generateKeyboardPanel(params);
+    wrapperEl.appendChild(keyboardEl);
   }
   bindEvents() {
       this.keyboard = document.querySelector('#' + this.props.id);
       let closeBox = this.keyboard.querySelector('.arrow-box');
-      closeBox.removeEventListener(clickEvt, this.closeHandler.bind(this), false);
-      closeBox.addEventListener(clickEvt, this.closeHandler.bind(this), false);
+      this.onClose = (e) => this.closeHandler(e);
+      closeBox.removeEventListener(clickEvt, this.onClose, false);
+      closeBox.addEventListener(clickEvt, this.onClose, false);
+      this.onCloseComplete = (e) => this.closeCompleteHandler(e);
+      this.onInput = (e) => this.inputHandler(e);
+      this.keyboard.addEventListener(inputEvt, this.onInput, false);
   }
   show() {
     document.documentElement.classList.add('scroll-fixed');
@@ -81,11 +82,25 @@ export default class JKeyboard {
     });
   }
   close() {
-    this.keyboard.removeEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
-    this.keyboard.addEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
     this.keyboard.classList.remove(slideUpAnimation);
   }
-  onCloseHandler() {
-      this.keyboard.removeEventListener(style.transitionEnd, this.onCloseHandler.bind(this), false);
+  closeHandler() {
+    this.close();
+    this.props.onClose && this.props.onClose();
+  }
+  closeCompleteHandler() {
+    this.keyboard.removeEventListener(style.transitionEnd, this.onCloseComplete, false);
+    document.documentElement.classList.add('scroll-fixed');
+    this.keyboard.style.display = 'none';
+  }
+  inputHandler(e) {
+    let target = e.target;
+    let inputKey = target.dataset.key;
+    if (inputKey && inputKey !== '') {
+      target.classList.add('active');
+      window.setTimeout(() => {
+        target.classList.remove('active');
+      }, 160);
+    }
   }
 }
