@@ -5,37 +5,115 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>jkeyboard-demo</title>
+    <style>
+        p {
+            margin:0;
+            padding:0;
+        }
+
+        .v-h {
+            visibility: hidden;
+        }
+        .code-box {
+            position: relative;
+            height:44px;
+            border: 1px solid #e4e4e4;
+            background-color: #fff;
+            margin:12px 12px 0 12px;
+        }
+        .custom-holder {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            color: #acacac;
+            padding-left: 10px;
+            font-size:13px;
+        }
+        .custom-holder.hide {
+            display:none;
+        }
+        .custom-txt {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            padding:12px 0 12px 7px;
+            font-size:13px;
+        }
+        .custom-txt p {
+            float:left;
+            height:16px;
+            white-space: nowrap;
+        }
+        .custom-pointer,.custom-txt span {
+            float:left;
+            background-color: #49b8ff;
+            width:2px;
+            margin-left:2px;
+            height:16px;
+        }
+        .custom-pointer.hide {
+            display:none;
+        }
+    </style>
 </head>
 <body>
-<button type="button" class="btn-show">显示</button>
-<button type="button" class="btn-hide">隐藏</button>
+<div class="code-box">
+   <input type="hidden" id="txtCode">
+   <p class="custom-holder">短信验证码（6位数）</p>
+   <div class="custom-txt">
+       <p class="txt-code"></p>
+       <span class="custom-pointer hide"></span>
+   </div>
+</div>
+
 <script src="/assets/jkeyboard.js"></script>
 <script>
-    var showBtn = document.querySelector('.btn-show');
-    var hideBtn = document.querySelector('.btn-hide');
+    var pointer = document.querySelector('.custom-pointer');
 
-    var keyboard = new JKeyboard({
-        onInput:function(key,rs){
-            console.log(key+','+rs);
-        },
-        onClose:function(){
-            console.log('close');
-        },
-        onClosed:function(){
-            console.log('closed');
-        },
-        onShow: function() {
-            console.log('show');
-        },
-        onDelete: function(rs) {
-            console.log('delete:'+rs);
+    var keyboard = null;
+
+    function changeTxt(rs) {
+       var txtCode = document.querySelector('.txt-code');
+       var inputEl = document.querySelector('[type="hidden"]');
+       var holder = document.querySelector('.custom-holder');
+       txtCode.innerText = rs;
+       if(rs.length>0){
+            holder.classList.add('hide');
+       }else{
+            holder.classList.remove('hide');
+       }
+    }
+    var pointerTimer = null;
+    var box = document.querySelector('.code-box');
+    box.addEventListener('click',function(){
+        pointerTimer = setInterval(function() {
+            pointer.classList.toggle('v-h');
+        }, 500);
+        if(!keyboard) {
+            keyboard = new JKeyboard({
+                onInput: function (key, rs) {
+                    changeTxt(rs);
+                },
+                onClose: function () {
+                    clearInterval(pointerTimer);
+                    pointer.classList.add('hide');
+                },
+                onClosed: function () {
+                    console.log('closed');
+                },
+                onShow: function () {
+                    pointer.classList.remove('hide');
+                },
+                onDelete: function (rs) {
+                    changeTxt(rs);
+                }
+            });
         }
-    });
-    showBtn.addEventListener('click',function () {
         keyboard.show();
-    },false);
-    hideBtn.addEventListener('click',function(){
-        keyboard.close();
     },false);
 </script>
 </body>

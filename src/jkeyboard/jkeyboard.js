@@ -101,7 +101,6 @@ export default class JKeyboard {
   close() {
     this.keyboard.addEventListener(style.transitionEnd, this.onCloseComplete, false);
     this.keyboard.classList.remove(slideUpAnimation);
-    this.empty();
   }
   empty() {
     this.props.result = [];
