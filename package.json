@@ -2,7 +2,7 @@
   "name": "jkeyboard",
   "version": "0.0.1",
   "description": "A js keyboard component for mobile.",
-  "main": "build/bscroll.js",
+  "main": "build/jkeyboard.js",
   "scripts": {
     "dev": "webpack-dev-server --port 9090 --inline --hot --content-base ./demo --host localhost",
     "build": "webpack && webpack --config webpack.prod.js"
