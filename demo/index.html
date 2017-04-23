@@ -13,7 +13,24 @@
 <script>
     var showBtn = document.querySelector('.btn-show');
     var hideBtn = document.querySelector('.btn-hide');
-    var keyboard = new JKeyboard();
+
+    var keyboard = new JKeyboard({
+        onInput:function(key,rs){
+            console.log(key+','+rs);
+        },
+        onClose:function(){
+            console.log('close');
+        },
+        onClosed:function(){
+            console.log('closed');
+        },
+        onShow: function() {
+            console.log('show');
+        },
+        onDelete: function(rs) {
+            console.log('delete:'+rs);
+        }
+    });
     showBtn.addEventListener('click',function () {
         keyboard.show();
     },false);
