@@ -1,5 +1,5 @@
 {
-  "name": "jkeyboard",
+  "name": "better-keyboard",
   "version": "0.0.1",
   "description": "A js keyboard component for mobile.",
   "main": "build/jkeyboard.js",
