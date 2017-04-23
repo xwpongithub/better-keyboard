@@ -26,6 +26,20 @@ A js keyboard component for mobile.
   </script>
 </body>
 ```  
+
+## 通过npm引入
+
+安装better-keyboard
+
+```shell
+npm install better-keyboard --save-dev
+```
+引入better-keyboard
+
+```javascript
+import JKeyboard from 'better-keyboard'
+````
+
 测试demo页
 
 ```shell
