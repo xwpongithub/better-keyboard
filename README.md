@@ -25,4 +25,28 @@ A js keyboard component for mobile.
     });                             
   </script>
 </body>
+```  
+测试demo页
+
+```shell
+npm run dev
 ```
+
+打开浏览器访问如下地址, 查看效果
+
+> localhost:9090  
+
+## Options 参数  
+
+-  defaultResult: `[]` 默认值
+-  containEl:  `body` 父级容器
+-  closeTitle: `完成` 关闭按钮文本
+-  max:  `6` 最大长度
+
+## Events 事件
+
+-  onInput  点击数字按钮
+-  onClose  键盘关闭
+-  onClosed 关闭动画结束后 
+-  onShow  键盘打开
+-  onDelete 点击删除按钮
