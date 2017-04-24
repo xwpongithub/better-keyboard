@@ -1,7 +1,7 @@
-# jkeyboard
+# better-keyboard
 A js keyboard component for mobile.
 
-![jkeyboard preview](./demo.gif)  
+![better-keyboard preview](./demo.gif)  
 
 ## 立即使用
 
@@ -63,4 +63,13 @@ npm run dev
 -  onClose  键盘关闭
 -  onClosed 关闭动画结束后 
 -  onShow  键盘打开
--  onDelete 点击删除按钮
+-  onDelete 点击删除按钮  
+
+## 实例方法
+
+-  show  打开键盘
+-  close  关闭键盘
+-  empty 清空输入值
+-  setResult  设置输入值
+-  getResult 获取当前输入值
+-  closeAndClear 关闭并清空已输入的值

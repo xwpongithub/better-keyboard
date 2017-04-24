@@ -6,20 +6,6 @@ const clickEvt = 'click';
 const slideUpAnimation = 'slide-up';
 const inputEvt = hasTouch ? 'touchend' : clickEvt;
 
-/**
- *  defaultResult []
- *  containEl body
- *  key ''
- *  showClose ''
- *  closeTitle '完成'
- *  max
- *
- *  onInput
- *  onClose
- *  onClosed
- *  onShow
- *  onDelete
- */
 export default class JKeyboard {
   constructor(options = {}) {
     let id = 'keyboard_' + genRandomID(8);
